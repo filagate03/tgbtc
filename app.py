@@ -58,12 +58,15 @@ def main_menu():
 
 @bot.message_handler(commands=['start', 'menu'])
 def welcome(msg):
-    text = """\n👋 <b>Крипто Бот</b>\nВыбери монету ниже, чтобы узнать курс (USD/RUB):"""
+    text = "\n👋 <b>Крипто Бот</b>\nВыбери монету ниже, чтобы узнать курс (USD/RUB):"
     bot.send_message(msg.chat.id, text, reply_markup=main_menu(), parse_mode='HTML')
 
 @bot.message_handler(commands=['help'])
 def help(msg):
-    bot.reply_to(msg, "\nДоступны запросы: BTC, ETH, SOL, BNB, USDT, DOGE, TRX, TON, ADA, XRP.\n\n/start - меню\n/help - помощь\n/menu - главное меню\nИли выбери на клавиатуре.")
+    bot.reply_to(
+        msg,
+        "\nДоступны запросы: BTC, ETH, SOL, BNB, USDT, DOGE, TRX, TON, ADA, XRP.\n\n/start - меню\n/help - помощь\n/menu - главное меню\nИли выбери на клавиатуре."
+    )
 
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() in TOP_COINS.keys())
 def coin_price_text(msg):
@@ -105,7 +108,3 @@ if __name__ == '__main__':
         bot.remove_webhook()
         print('Polling mode')
         bot.infinity_polling(none_stop=True)
-'''
-
-with open('app.py', 'w', encoding='utf-8') as f:
-    f.write(corrected_bot)
